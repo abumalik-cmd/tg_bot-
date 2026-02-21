@@ -1,14 +1,69 @@
 import os
-from pathlib import Path
-from dotenv import load_dotenv
+from pathlib import Path ## Для работы с путями файлов в кросс-платформенном виде (win, linux mac)
+from dotenv import load_dotenv ## Загрузить переменные из файла .env. 
 
-load_dotenv()
+load_dotenv () ## Прочитать файл .env и установить переменные окружения. 
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent 
+"""Что это:
+
+Получить путь к корневой папке проекта.
+
+Пошаговый разбор:
+
+__file__                               → /home/user/project/config/settings.py
+Path(__file__)                         → путь как объект Path
+Path(__file__).resolve()               → абсолютный путь
+Path(__file__).resolve().parent        → /home/user/project/config
+Path(__file__).resolve().parent.parent → /home/user/project  (BASE_DIR)  
+
+
+project/                    ← BASE_DIR (родитель родителя)
+├─ config/                  ← .parent (родитель)
+│  └─ settings.py           ← __file__ (этот файл)
+├─ bot/
+├─ manage.py
+└─ requirements.txt""" 
+
+
+
+
+
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-change-me-in-production')
+"""Что это:
+
+Секретный ключ Django для шифрования данных.
+
+Как работает:
+
+os.environ.get('SECRET_KEY', 'default_value')
+│
+├─ Попробуй получить переменную SECRET_KEY из окружения (.env файл)
+├─ Если нет в окружении → используй значение по умолчанию
+└─ Вернуть значение
+Файл .env:
+
+SECRET_KEY=my-super-secret-key-12345
+Зачем нужен:
+
+Шифрование сессий (cookies)
+Шифрование паролей
+CSRF токены"""
+
+
+
+
 
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+"""Что означает DEBUG=True:
+
+if DEBUG:
+    # ВКЛ В РЕЖИМЕ РАЗРАБОТКИ:
+    ✅ Показываем подробные ошибки в браузере
+    ✅ Проверяем SQL запросы
+    ✅ Перезагружаем код при изменении файлов
+    ✅ Не требуется .env файл"""
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
