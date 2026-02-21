@@ -3,6 +3,18 @@ from django.db import models
 
 class AdminSettings(models.Model):
     contact = models.CharField(max_length=100, default="@Abumalik08", verbose_name="Контакт")
+
+    """ # Упрощенная реализация того, что происходит внутри Django
+class CharField:
+    def __init__(self, max_length=100, default=None, verbose_name=""):
+        self.max_length = max_length  # сохраняется в памяти
+        self.default = default        # сохраняется в памяти
+        self.verbose_name = verbose_name
+        self.column_name = None       # заполнится позже
+        
+    def __set_name__(self, owner, name):
+        # Этот метод вызывается автоматически, когда поле присваивается классу
+        self.column_name = name  # сохраняем имя поля ("contact") """ 
     
     class Meta:
         verbose_name = "Настройки"
